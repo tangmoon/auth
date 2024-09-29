@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.auth.dao.mapper.SysDeptMapper">
+
+    <select id="selectByCode" resultType="com.example.auth.dao.entity.SysDept">
+        select *
+        from sys_dept
+        where dept_code = #{deptCode} and del_flag = 0
+        limit 1
+    </select>
+
+    <select id="selectByName" resultType="com.example.auth.dao.entity.SysDept">
+        select *
+        from sys_dept
+        where dept_name = #{deptName} and del_flag = 0
+        limit 1
+    </select>
+
+    <select id="selectByParentCode" resultType="com.example.auth.dao.entity.SysDept">
+        select *
+        from sys_dept
+        where parent_code = #{parentCode} and del_flag = 0
+    </select>
+
+    <select id="queryDeptNum" resultType="int">
+        select count(*)
+        from sys_dept
+    </select>
+</mapper>

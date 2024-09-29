@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.auth.dao.mapper.RoleMapper">
+
+    <select id="selectPageVo"
+            parameterType="com.example.auth.web.vo.page.BasePage"
+            resultType="com.example.auth.dao.entity.Role">
+        select *
+        from sys_role
+        where del_flag = 0
+        <if test="basePage.roleName != null and basePage.roleName != ''">
+            and role_name like concat('%', #{basePage.roleName},'%')
+        </if>
+        <if test="basePage.tenantCode != null and basePage.tenantCode != ''">
+            and tenant_code = #{basePage.tenantCode}
+        </if>
+        order by id desc
+    </select>
+
+    <select id="selectByRoleCode" resultType="com.example.auth.dao.entity.Role">
+        select *
+        from sys_role
+        where role_code = #{roleCode} and del_flag = 0
+        limit 1
+    </select>
+
+    <select id="selectByRoleName" resultType="com.example.auth.dao.entity.Role">
+        select *
+        from sys_role
+        where role_name = #{roleName} and del_flag = 0
+        limit 1
+    </select>
+
+    <select id="selectByUserCode" resultType="com.example.auth.dao.entity.Role">
+        SELECT sr.*
+        from hs.sys_role sr , hs.sys_user_role sur
+        where sr.del_flag = 0 and sur.del_flag  = 0
+        and sr.role_code = sur.role_code and sur.user_code = #{userCode}
+    </select>
+
+    <select id="queryRole" resultType="integer">
+        select count(*) total
+        from sys_role
+    </select>
+</mapper>

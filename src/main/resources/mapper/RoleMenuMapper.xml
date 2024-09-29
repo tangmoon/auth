@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.auth.dao.mapper.RoleMenuMapper">
+
+    <select id="selectByRoleCodeList" resultType="com.example.auth.dao.entity.RoleMenu">
+        select *
+        from sys_role_menu
+        where
+        <if test="roleCodes != null and roleCodes.length > 0">
+            and role_code in
+            <foreach collection="roleCodes" item="roleCode" open="(" close=")" separator=",">
+                #{roleCode}
+            </foreach>
+        </if>
+        <if test="tenantCode != null and tenantCode != ''">
+            and tenant_code = #{tenantCode}
+        </if>
+        and del_flag = 0
+    </select>
+
+    <select id="selectByRoleCode" resultType="com.example.auth.dao.entity.RoleMenu">
+        select *
+        from sys_role_menu
+        where role_code = #{roleCode}
+        and del_flag = 0
+    </select>
+</mapper>

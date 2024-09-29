@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.auth.dao.mapper.UserRoleMapper">
+
+    <select id="selectByUserCode" resultType="com.example.auth.dao.entity.UserRole">
+        select *
+        from sys_user_role
+        where user_code = #{userCode} and del_flag = 0
+    </select>
+</mapper>
